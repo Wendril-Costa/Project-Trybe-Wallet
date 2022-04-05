@@ -10,5 +10,5 @@ const store = createStore(
     applyMiddleware(thunk),
   ),
 );
-console.log(store);
+
 export default store;
