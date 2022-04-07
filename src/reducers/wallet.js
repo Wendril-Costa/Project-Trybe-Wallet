@@ -1,4 +1,4 @@
-import { GET_CURRENCIES, FAILED_REQUEST } from '../actions';
+import { GET_CURRENCIES, FAILED_REQUEST, ADD_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -10,6 +10,8 @@ function wallet(state = INITIAL_STATE, action) {
   case GET_CURRENCIES:
     delete action.payload.USDT;
     return { ...state, currencies: Object.keys(action.payload) };
+  case ADD_EXPENSES:
+    return { ...state, expenses: action.payload };
   case FAILED_REQUEST:
     return { ...state, error: action.payload };
   default:

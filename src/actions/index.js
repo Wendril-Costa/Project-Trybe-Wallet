@@ -3,6 +3,10 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 
 export const addEmail = (email) => ({ type: ADD_EMAIL, email });
 
+export const ADD_EXPENSES = 'ADD_EXPENSES';
+
+export const addExpenses = (payload) => ({ type: ADD_EXPENSES, payload });
+
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
