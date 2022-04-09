@@ -12,26 +12,18 @@ class Wallet extends React.Component {
     description: '',
     tag: '',
     method: '',
-    exchangeRates: {},
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     const { dispatchFetch } = this.props;
-    await dispatchFetch();
+    dispatchFetch();
   };
 
-  getExchangeRates = async () => {
+  handleClick = async () => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const json = await response.json();
-    this.setState({
-      exchangeRates: json,
-    });
-  }
-
-  handleClick = () => {
-    this.getExchangeRates();
+    const exchangeRates = await response.json();
     const { dispatchExpense } = this.props;
-    const { value, currency, description, tag, method, exchangeRates } = this.state;
+    const { value, currency, description, tag, method } = this.state;
     let { id } = this.state;
     const payload = {
       id,
@@ -42,12 +34,11 @@ class Wallet extends React.Component {
       method,
       exchangeRates,
     };
-    console.log(this.state);
+    dispatchExpense(payload);
     this.setState({
       id: id += 1,
       value: '',
     });
-    dispatchExpense(payload);
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -62,7 +53,9 @@ class Wallet extends React.Component {
     return (
       <div>
         <h1>TrybeWallet</h1>
-        <Header />
+        <header>
+          <Header />
+        </header>
         <label htmlFor="value">
           Valor
           <input
@@ -135,15 +128,15 @@ class Wallet extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <label htmlFor="button">
-          <input
-            id="button"
-            name="button"
-            type="button"
-            value="Adicionar despesa"
-            onClick={ this.handleClick }
-          />
-        </label>
+        <button
+          id="button"
+          name="button"
+          type="button"
+          value="Adicionar despesa"
+          onClick={ this.handleClick }
+        >
+          Adicionar despesa
+        </button>
         <table>
           <tbody>
             <tr>
@@ -166,6 +159,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
+  expenses: wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
