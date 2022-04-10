@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Table from '../components/Table';
 import { addExpenses, fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
@@ -137,21 +138,7 @@ class Wallet extends React.Component {
         >
           Adicionar despesa
         </button>
-        <table>
-          <tbody>
-            <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
-            </tr>
-          </tbody>
-        </table>
+        <Table />
       </div>
     );
   }
@@ -159,7 +146,6 @@ class Wallet extends React.Component {
 
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
-  expenses: wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
